@@ -1,5 +1,7 @@
 import numpy as np 
-import pandas as pd\
+import pandas as pd
+
+import matplotlib.pyplot as plt
 
 data=pd.read_csv("logistic_regression_dataset.csv")
 x=np.array(data .iloc[:,0:7])
@@ -37,7 +39,7 @@ def accuracy(y,y_hat):
     wrong=np.sum(y!=y_hat)
     total=len(y)
     acc=correct/total*100
-    print(f"correct:{correct}, wrong:{wrong}, total:{total}, accuracy:{acc}%")
+    print(f"correct:{correct}, wrong:{wrong}, total:{total}, accuracy:{acc}")
 
 a,c=gradient_descent(x,y,w,b)
 print(a,c)  
@@ -49,3 +51,12 @@ y_hat=threshold(f)
 print(y_hat[:10])
 
 accuracy(y, y_hat)
+
+for i in range(x.shape[1]):
+    plt.scatter(x[:,i],y, color='red')
+    sort=np.argsort(x[:,i])
+    plt.plot(x[:,i][sort],f[sort], color='blue')
+    plt.title(f"Feature {i+1} vs Target")
+    plt.xlabel(f"Feature {i+1}")
+    plt.ylabel("Target")
+    plt.show()
